@@ -1,0 +1,188 @@
+.video-card {
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: block;
+  cursor: pointer;
+}
+
+.video-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Thumbnail */
+/* 1. The Container */
+.video-thumbnail {
+  position: relative;
+  width: 100%;
+  /* Use aspect-ratio instead of padding-bottom hack for better stability */
+  aspect-ratio: 16 / 9; 
+  overflow: hidden;
+  background-color: #000;
+  border-radius: 12px;
+  display: block;
+}
+
+/* 2. The Image - Targeted specifically to override anything else */
+.video-thumbnail img.thumbnail-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% !important;  /* Forced 100% width */
+  height: 100% !important; /* Forced 100% height */
+  object-fit: cover;       /* Ensures it fills the box perfectly */
+  display: block;
+  border: none;
+}
+
+/* 3. The Badge */
+.video-duration {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  z-index: 10; /* Ensure it stays on top of the absolute image */
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+/* Video Info */
+.video-info {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.video-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0;
+  display: -webkit-box;
+  /* -webkit-line-clamp: 2; */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.3;
+  color: #000;
+}
+
+/* Dark mode title */
+:global(.navbar.dark) .video-card .video-title {
+  color: #fff;
+}
+
+.video-channel {
+  font-size: 0.85rem;
+  color: #606060;
+  margin: 0;
+  font-weight: 500;
+}
+
+:global(.navbar.dark) .video-card .video-channel {
+  color: #aaa;
+}
+
+.video-stats {
+  display: flex;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: #606060;
+}
+
+:global(.navbar.dark) .video-card .video-stats {
+  color: #aaa;
+}
+
+.views,
+.date {
+  margin: 0;
+}
+
+.date::before {
+  content: '•';
+  margin: 0 0.5rem;
+}
+
+.video-description {
+  font-size: 0.8rem;
+  color: #606060;
+  margin: 0;
+  display: -webkit-box;
+  /* -webkit-line-clamp: 1; */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+:global(.navbar.dark) .video-card .video-description {
+  color: #aaa;
+}
+
+/* Engagement Section */
+.video-engagement {
+  display: flex;
+  gap: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid #eee;
+  font-size: 0.8rem;
+  align-items: center;
+}
+
+:global(.navbar.dark) .video-card .video-engagement {
+  border-color: #333;
+}
+
+.like-btn,
+.dislike-btn,
+.comment-count {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #606060;
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  font-size: 0.8rem;
+}
+
+:global(.navbar.dark) .video-card .like-btn,
+:global(.navbar.dark) .video-card .dislike-btn,
+:global(.navbar.dark) .video-card .comment-count {
+  color: #aaa;
+}
+
+.like-btn:hover,
+.dislike-btn:hover {
+  background-color: #f0f0f0;
+}
+
+:global(.navbar.dark) .video-card .like-btn:hover,
+:global(.navbar.dark) .video-card .dislike-btn:hover {
+  background-color: #333;
+}
+
+.like-btn.active,
+.dislike-btn.active {
+  color: #ff0000;
+  font-weight: bold;
+}
+
+.comment-count {
+  cursor: default;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .video-title {
+    font-size: 0.9rem;
+  }
+
+  .video-channel {
+    font-size: 0.8rem;
+  }
+}

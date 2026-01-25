@@ -1,0 +1,133 @@
+.search-page {
+  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  min-height: calc(100vh - 80px);
+}
+
+.search-header {
+  margin-bottom: 30px;
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 15px;
+}
+
+.search-header h1 {
+  margin: 0 0 10px 0;
+  font-size: 28px;
+  color: #333;
+}
+
+.dark .search-header h1 {
+  color: #fff;
+}
+
+.result-count {
+  margin: 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.dark .result-count {
+  color: #aaa;
+}
+
+.videos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+  font-size: 18px;
+  color: #666;
+}
+
+.dark .loading {
+  color: #aaa;
+}
+
+.error-message {
+  background-color: #ffe6e6;
+  border: 1px solid #ff9999;
+  color: #cc0000;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  margin: 30px 0;
+}
+
+.dark .error-message {
+  background-color: #400000;
+  border-color: #660000;
+  color: #ff6666;
+}
+
+.error-message p {
+  margin: 0 0 15px 0;
+  font-size: 16px;
+}
+
+.error-message button {
+  background-color: #ff6666;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.error-message button:hover {
+  background-color: #ff4444;
+}
+
+.no-results {
+  text-align: center;
+  padding: 60px 20px;
+  color: #666;
+}
+
+.dark .no-results {
+  color: #aaa;
+}
+
+.no-results p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.no-results button {
+  background-color: #ff0000;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.no-results button:hover {
+  background-color: #cc0000;
+}
+
+@media (max-width: 768px) {
+  .search-page {
+    padding: 10px;
+  }
+
+  .search-header h1 {
+    font-size: 22px;
+  }
+
+  .videos-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+  }
+}

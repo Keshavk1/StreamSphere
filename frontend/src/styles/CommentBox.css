@@ -1,0 +1,83 @@
+.comment-box {
+  margin-top: 1rem;
+  border-top: 1px solid var(--border-light);
+  padding-top: 1rem;
+}
+
+.comment-box h3 {
+  margin-bottom: 0.75rem;
+}
+
+.comment-form textarea {
+  width: 100%;
+  min-height: 80px;
+  padding: 0.75rem;
+  border-radius: 6px;
+  border: 1px solid var(--border-light);
+  resize: vertical;
+}
+
+.comment-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.5rem;
+}
+
+.comment-submit {
+  padding: 0.5rem 1rem;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.comments-list {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.comment-item {
+  padding: 0.75rem;
+  background: var(--surface-light);
+  border-radius: 8px;
+}
+
+.comment-author {
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.comment-text {
+  margin-bottom: 0.5rem;
+  color: var(--secondary-text-light);
+}
+
+.comment-meta {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  font-size: 0.85rem;
+}
+
+.comment-like {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.no-comments {
+  color: var(--secondary-text-light);
+}
+
+/* Dark mode */
+body.dark .comment-item {
+  background: var(--surface-dark);
+}
+
+body.dark .comment-text,
+body.dark .no-comments {
+  color: var(--secondary-text-dark);
+}

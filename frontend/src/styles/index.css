@@ -1,0 +1,179 @@
+:root {
+  --primary-color: #ff0000;
+  --primary-dark: #cc0000;
+  --background-light: #f9f9f9;
+  --background-dark: #181818;
+  --surface-light: #fff;
+  --surface-dark: #212121;
+  --text-light: #000;
+  --text-dark: #fff;
+  --secondary-text-light: #606060;
+  --secondary-text-dark: #aaa;
+  --border-light: #d3d3d3;
+  --border-dark: #444;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--background-light);
+  color: var(--text-light);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Light mode (default) */
+body.light {
+  background-color: var(--background-light);
+  color: var(--text-light);
+}
+
+/* Dark mode */
+body.dark {
+  background-color: var(--background-dark);
+  color: var(--text-dark);
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-weight: 600;
+}
+
+p {
+  line-height: 1.6;
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--primary-dark);
+}
+
+button {
+  font-family: inherit;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background-light);
+}
+
+body.dark ::-webkit-scrollbar-track {
+  background: var(--background-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Selection Color */
+::selection {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+/* Code blocks */
+code, pre {
+  font-family: 'Courier New', 'Monaco', monospace;
+  background-color: var(--surface-light);
+  color: var(--text-light);
+}
+
+body.dark code, body.dark pre {
+  background-color: #1a1a1a;
+  color: #0f0;
+}
+
+/* Utility Classes */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1rem;
+  }
+}
+
+/* Animations */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Responsive Typography */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  h2 {
+    font-size: 1.3rem;
+  }
+
+  h3 {
+    font-size: 1.1rem;
+  }
+
+  body {
+    font-size: 0.95rem;
+  }
+}
