@@ -33,100 +33,82 @@ All bugs have been fixed and the application is ready for use, learning, or depl
 
 ### Prerequisites
 - Node.js 14+
-- MongoDB Atlas account or local MongoDB
-- npm or yarn
+- MongoDB (Local or Atlas)
+- npm
 
-### Backend Setup
+### ⚙️ Installation & Setup
 
-```bash
-cd backend
+1. **Clone and Install**
+   ```bash
+   # Install Backend
+   cd backend
+   npm install
 
-# Install dependencies
-npm install
+   # Install Frontend
+   cd ../frontend
+   npm install
+   ```
 
-# Create .env file
-echo "
-MONGODB_URI=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret_key
-FRONTEND_URL=http://localhost:5173
-PORT=5000
-" > .env
+2. **Environment Configuration**
+   Create a `.env` file in the `backend` directory:
+   ```env
+   MONGODB_URI=your_mongodb_connection_string
+   JWT_SECRET=your_jwt_secret_key
+   FRONTEND_URL=http://localhost:5173
+   PORT=5000
+   ```
 
-# Start server
-npm start
-```
+3. **Seed Database (Optional)**
+   ```bash
+   cd backend
+   npm run seed
+   ```
 
-The backend runs on `http://localhost:5000`
+4. **Run Application**
+   - **Backend**: `npm run dev` (in `backend/`)
+   - **Frontend**: `npm run dev` (in `frontend/`)
+   - **Access**: http://localhost:5173
 
-### Frontend Setup
+---
 
-```bash
-cd frontend
+## ✅ Testing & Validation
 
-# Install dependencies
-npm install
+### Manual Testing Checklist
+- [ ] **Home Page**: Videos load in grid layout with thumbnails.
+- [ ] **Watch Page**: Clicking a video navigates to the player page.
+- [ ] **Search**: Results appear correctly for valid queries.
+- [ ] **Auth**: Registration and Login work (check JWT in localStorage).
+- [ ] **Upload**: Logged-in users can upload new videos.
+- [ ] **Dashboard**: Users can view and manage their uploaded videos.
+- [ ] **Dark Mode**: Toggle button in navbar works across all pages.
 
-# Start development server
-npm run dev
-```
+### Troubleshooting
+- **Videos not loading?** Ensure MongoDB is running and `.env` has the correct URI.
+- **CORS Errors?** Check `FRONTEND_URL` in backend `.env` matches your browser URL.
+- **Port 5000 in use?** Change `PORT` in backend `.env`.
 
-The frontend runs on `http://localhost:5173`
+---
 
 ## 📁 Project Structure
 
 ```
 youtube-clone/
-├── backend/
-│   ├── config/
-│   │   └── db.js
-│   ├── controllers/
-│   │   ├── videoController.js
-│   │   ├── commentController.js
-│   │   └── authController.js
-│   ├── models/
-│   │   ├── Video.js
-│   │   ├── Comment.js
-│   │   └── User.js
-│   ├── routes/
-│   │   ├── videoRoutes.js
-│   │   ├── commentRoutes.js
-│   │   └── authRoutes.js
-│   ├── middleware/
-│   │   └── auth.js
-│   ├── server.js
-│   └── package.json
+├── backend/           # Node.js/Express API
+│   ├── config/        # Database configuration
+│   ├── controllers/   # Route handlers
+│   ├── middleware/    # Auth & error handling
+│   ├── models/        # Mongoose schemas
+│   ├── routes/        # API endpoints
+│   ├── scripts/       # Utility scripts (seed.js)
+│   └── server.js      # Entry point
 │
-├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── Navbar.jsx
-│   │   │   ├── VideoCard.jsx
-│   │   │   └── CommentBox.jsx
-│   │   ├── pages/
-│   │   │   ├── Home.jsx
-│   │   │   ├── Watch.jsx
-│   │   │   ├── Dashboard.jsx
-│   │   │   ├── Search.jsx
-│   │   │   ├── Login.jsx
-│   │   │   ├── Register.jsx
-│   │   │   └── Upload.jsx
-│   │   ├── context/
-│   │   │   └── AuthContext.jsx
-│   │   ├── services/
-│   │   │   └── api.js
-│   │   ├── styles/
-│   │   │   ├── Navbar.css
-│   │   │   ├── Home.css
-│   │   │   └── Search.css
-│   │   ├── App.jsx
-│   │   └── main.jsx
-│   └── package.json
-│
-├── DEBUG_REPORT.md
-├── QUICK_FIX_GUIDE.md
-├── VALIDATION_CHECKLIST.md
-├── EXACT_CHANGES_MADE.md
-└── COMPLETE_FIX_SUMMARY.md
+└── frontend/          # Vite/React Application
+    ├── src/           # Component & Logic root
+    │   ├── components/# Reusable UI elements
+    │   ├── pages/     # Main view components
+    │   ├── context/   # Auth state management
+    │   └── styles/    # Vanilla CSS files
+    └── package.json   # Frontend manifest
 ```
 
 ## 🔧 API Endpoints
