@@ -1,8 +1,8 @@
-const User = require('../models/User');
-const jwt = require('jsonwebtoken');
+import User from '../models/User.js';
+import jwt from 'jsonwebtoken';
 
 // Register user
-exports.register = async (req, res) => {
+export const register = async (req, res) => {
   try {
     const { username, email, password, confirmPassword } = req.body;
 
@@ -50,7 +50,7 @@ exports.register = async (req, res) => {
 };
 
 // Login user
-exports.login = async (req, res) => {
+export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -91,7 +91,7 @@ exports.login = async (req, res) => {
 };
 
 // Get current user
-exports.getMe = async (req, res) => {
+export const getMe = async (req, res) => {
   try {
     const user = await User.findById(req.userId).select('-password');
     if (!user) {
@@ -104,7 +104,7 @@ exports.getMe = async (req, res) => {
 };
 
 // Update channel
-exports.updateChannel = async (req, res) => {
+export const updateChannel = async (req, res) => {
   try {
     const { channelName, channelDescription, profilePicture } = req.body;
 

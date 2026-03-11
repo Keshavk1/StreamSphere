@@ -39,7 +39,7 @@ const Register = () => {
     }
 
     try {
-      const result = await register(username, email, password);
+      const result = await register(username, email, password, confirmPassword);
       if (result.success) {
         navigate('/');
       } else {

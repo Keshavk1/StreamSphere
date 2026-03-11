@@ -46,7 +46,7 @@ const Navbar = () => {
         {/* Logo */}
         <Link to="/" className="navbar-logo">
           <span className="logo-icon">▶️</span>
-          <span className="logo-text">YouTube Clone</span>
+          <span className="logo-text">StreamSphere</span>
         </Link>
 
         {/* Search Bar */}

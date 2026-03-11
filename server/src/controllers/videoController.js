@@ -1,13 +1,17 @@
-const Video = require('../models/Video');
+import Video from '../models/Video.js';
+import APIFeatures from '../utils/apiFeatures.js';
 
 // Get all videos
-exports.getAllVideos = async (req, res) => {
+export const getAllVideos = async (req, res) => {
   try {
-    const videos = await Video.find()
-      .populate('creator', 'username channelName profilePicture')
-      .sort({ createdAt: -1 });
+    const features = new APIFeatures(Video.find().populate('creator', 'username channelName profilePicture'), req.query)
+      .filter()
+      .sort()
+      .limitFields()
+      .paginate();
 
-    // Return videos directly as array (simpler for frontend)
+    const videos = await features.query;
+
     res.status(200).json(videos);
   } catch (error) {
     console.error('Error fetching videos:', error);
@@ -16,7 +20,7 @@ exports.getAllVideos = async (req, res) => {
 };
 
 // Get single video
-exports.getVideoById = async (req, res) => {
+export const getVideoById = async (req, res) => {
   try {
     const { videoId } = req.params;
 
@@ -42,7 +46,7 @@ exports.getVideoById = async (req, res) => {
 };
 
 // Upload video
-exports.uploadVideo = async (req, res) => {
+export const uploadVideo = async (req, res) => {
   try {
     const { title, description, videoUrl, thumbnailUrl, duration, category } = req.body;
 
@@ -71,7 +75,7 @@ exports.uploadVideo = async (req, res) => {
 };
 
 // Delete video
-exports.deleteVideo = async (req, res) => {
+export const deleteVideo = async (req, res) => {
   try {
     const { videoId } = req.params;
     const video = await Video.findById(videoId);
@@ -92,7 +96,7 @@ exports.deleteVideo = async (req, res) => {
 };
 
 // Like video
-exports.likeVideo = async (req, res) => {
+export const likeVideo = async (req, res) => {
   try {
     const { videoId } = req.params;
     const video = await Video.findById(videoId);
@@ -122,7 +126,7 @@ exports.likeVideo = async (req, res) => {
 };
 
 // Dislike video
-exports.dislikeVideo = async (req, res) => {
+export const dislikeVideo = async (req, res) => {
   try {
     const { videoId } = req.params;
     const video = await Video.findById(videoId);
@@ -152,7 +156,7 @@ exports.dislikeVideo = async (req, res) => {
 };
 
 // Get videos by category
-exports.getVideosByCategory = async (req, res) => {
+export const getVideosByCategory = async (req, res) => {
   try {
     const { category } = req.params;
 
@@ -167,7 +171,7 @@ exports.getVideosByCategory = async (req, res) => {
 };
 
 // Search videos
-exports.searchVideos = async (req, res) => {
+export const searchVideos = async (req, res) => {
   try {
     const { query } = req.params;
 
@@ -187,7 +191,7 @@ exports.searchVideos = async (req, res) => {
 };
 
 // Get creator videos
-exports.getCreatorVideos = async (req, res) => {
+export const getCreatorVideos = async (req, res) => {
   try {
     const { creatorId } = req.params;
 

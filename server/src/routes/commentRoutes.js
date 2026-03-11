@@ -1,6 +1,6 @@
-const express = require('express');
-const commentController = require('../controllers/commentController');
-const { authMiddleware } = require('../middleware/auth');
+import express from 'express';
+import * as commentController from '../controllers/commentController.js';
+import { authMiddleware } from '../middlewares/auth.js';
 
 const router = express.Router();
 
@@ -10,4 +10,4 @@ router.delete('/:commentId', authMiddleware, commentController.deleteComment);
 router.put('/:commentId', authMiddleware, commentController.updateComment);
 router.post('/:commentId/like', authMiddleware, commentController.likeComment);
 
-module.exports = router;
+export default router;

@@ -1,7 +1,7 @@
-const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken';
 
 // Check if user is authenticated
-const authMiddleware = (req, res, next) => {
+export const authMiddleware = (req, res, next) => {
   try {
     const token = req.header('Authorization')?.replace('Bearer ', '');
 
@@ -18,7 +18,7 @@ const authMiddleware = (req, res, next) => {
 };
 
 // Optional auth - doesn't fail if no token
-const optionalAuth = (req, res, next) => {
+export const optionalAuth = (req, res, next) => {
   try {
     const token = req.header('Authorization')?.replace('Bearer ', '');
 
@@ -32,5 +32,3 @@ const optionalAuth = (req, res, next) => {
 
   next();
 };
-
-module.exports = { authMiddleware, optionalAuth };

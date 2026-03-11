@@ -1,8 +1,8 @@
-const Comment = require('../models/Comment');
-const Video = require('../models/Video');
+import Comment from '../models/Comment.js';
+import Video from '../models/Video.js';
 
 // Add comment
-exports.addComment = async (req, res) => {
+export const addComment = async (req, res) => {
   try {
     const { text, videoId } = req.body;
 
@@ -35,7 +35,7 @@ exports.addComment = async (req, res) => {
 };
 
 // Get comments for video
-exports.getComments = async (req, res) => {
+export const getComments = async (req, res) => {
   try {
     const { videoId } = req.params;
 
@@ -50,7 +50,7 @@ exports.getComments = async (req, res) => {
 };
 
 // Delete comment
-exports.deleteComment = async (req, res) => {
+export const deleteComment = async (req, res) => {
   try {
     const { commentId } = req.params;
     const comment = await Comment.findById(commentId);
@@ -76,7 +76,7 @@ exports.deleteComment = async (req, res) => {
 };
 
 // Like comment
-exports.likeComment = async (req, res) => {
+export const likeComment = async (req, res) => {
   try {
     const { commentId } = req.params;
     const comment = await Comment.findById(commentId);
@@ -101,7 +101,7 @@ exports.likeComment = async (req, res) => {
 };
 
 // Update comment
-exports.updateComment = async (req, res) => {
+export const updateComment = async (req, res) => {
   try {
     const { commentId } = req.params;
     const { text } = req.body;
