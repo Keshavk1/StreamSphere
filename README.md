@@ -37,9 +37,16 @@ Users can create accounts, upload videos, interact with content, and manage thei
 - Creator-specific video feeds
 
 ### Discovery Features
-- Video search
+- Video search with high-performance MongoDB text indexing
 - Category based browsing
-- Creator video listing
+- Trending videos feed using advanced aggregation pipelines
+- Scalable cursor-based pagination for all list endpoints
+
+### Advanced Backend Architecting
+- Engineered scalable backend services for authentication and content publishing
+- High-performance REST APIs with unified pagination and filtering
+- MongoDB aggregation pipelines for engagement analytics and platform-wide stats
+- Efficient Cloudinary integration for scalable video and image storage
 
 ---
 
@@ -57,15 +64,16 @@ Users can create accounts, upload videos, interact with content, and manage thei
 - JWT Authentication
 - RESTful API architecture
 
-### Database
-- MongoDB
+### Database & Storage
+- MongoDB (Advanced Aggregation Pipelines & Text Search)
 - Mongoose ODM
+- Cloudinary (Video & Image Hosting)
 
 ### Tools
-- Git
-- GitHub
-- dotenv
-- CORS
+- Git & GitHub
+- Multer (File Handling)
+- dotenv & CORS
+- Bcrypt.js (Password Security)
 
 ---
 
@@ -96,9 +104,14 @@ The backend exposes REST endpoints for videos, comments, and authentication whil
 - Creator-specific queries
 
 ### Comment Service
-- Comment creation
-- Comment updates
-- Like interactions
+- Comment creation and management
+- Nested author population
+- Interaction counts
+
+### Analytics & Discovery Service
+- **Trending Pipeline**: Scores videos based on views, likes, and recency
+- **Platform Analytics**: $facet aggregations for global engagement metrics
+- **Category Stats**: Aggregated insights on content distribution
 
 ---
 
@@ -165,8 +178,12 @@ Create `.env` in backend:
 MONGODB_URI=your_mongodb_uri
 JWT_SECRET=your_secret
 FRONTEND_URL=http://localhost:5173
-
 PORT=5000
+
+# Cloudinary Configuration
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
 
 
 ---
@@ -207,11 +224,9 @@ This project demonstrates:
 ---
 
 # Future Improvements
-
-- Video file storage (AWS S3 / Cloudinary)
-- Recommendation system
-- Video streaming optimization
-- Real-time notifications
+- Recommendation system based on user behavior
+- Video streaming optimization (HLS/DASH)
+- Real-time notifications with Socket.io
 - CDN based video delivery
 
 ---

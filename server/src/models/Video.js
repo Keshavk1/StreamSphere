@@ -67,5 +67,13 @@ const videoSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// Indexes for performance
+videoSchema.index({ category: 1 });
+videoSchema.index({ creator: 1 });
+videoSchema.index({ createdAt: -1 });
+
+// Text index for search
+videoSchema.index({ title: 'text', description: 'text' });
+
 const Video = mongoose.model('Video', videoSchema);
 export default Video;

@@ -1,18 +1,32 @@
 import Video from '../models/Video.js';
 import APIFeatures from '../utils/apiFeatures.js';
+import { getCursorPagination } from '../utils/pagination.js';
 
-// Get all videos
+// Get all videos with cursor pagination
 export const getAllVideos = async (req, res) => {
   try {
-    const features = new APIFeatures(Video.find().populate('creator', 'username channelName profilePicture'), req.query)
-      .filter()
-      .sort()
-      .limitFields()
-      .paginate();
+    const { cursor, limit, category } = req.query;
+    const filter = category ? { category } : {};
+    
+    const pagination = await getCursorPagination(Video, {
+      filter,
+      cursor,
+      limit: parseInt(limit) || 12,
+      sortField: 'createdAt',
+      sortOrder: -1
+    });
 
-    const videos = await features.query;
+    // Populate creator for the results
+    const results = await Video.populate(pagination.results, {
+      path: 'creator',
+      select: 'username channelName profilePicture'
+    });
 
-    res.status(200).json(videos);
+    res.status(200).json({
+      status: 'success',
+      ...pagination,
+      results
+    });
   } catch (error) {
     console.error('Error fetching videos:', error);
     res.status(500).json({ message: 'Error fetching videos', error: error.message });
@@ -45,13 +59,21 @@ export const getVideoById = async (req, res) => {
   }
 };
 
-// Upload video
+// Upload video (Modified for Cloudinary & Multer)
 export const uploadVideo = async (req, res) => {
   try {
-    const { title, description, videoUrl, thumbnailUrl, duration, category } = req.body;
+    const { title, description, duration, category } = req.body;
+    
+    // Check for uploaded files
+    if (!req.files || !req.files.video || !req.files.thumbnail) {
+      return res.status(400).json({ message: 'Video and thumbnail files are required' });
+    }
 
-    if (!title || !videoUrl || !thumbnailUrl) {
-      return res.status(400).json({ message: 'Title, videoUrl, thumbnailUrl required' });
+    const videoUrl = req.files.video[0].path;
+    const thumbnailUrl = req.files.thumbnail[0].path;
+
+    if (!title) {
+      return res.status(400).json({ message: 'Title is required' });
     }
 
     const newVideo = new Video({
@@ -170,21 +192,30 @@ export const getVideosByCategory = async (req, res) => {
   }
 };
 
-// Search videos
+// Search videos (Leveraging text index)
 export const searchVideos = async (req, res) => {
   try {
     const { query } = req.params;
+    const { cursor, limit } = req.query;
 
-    const videos = await Video.find({
-      $or: [
-        { title: { $regex: query, $options: 'i' } },
-        { description: { $regex: query, $options: 'i' } }
-      ]
-    })
-      .populate('creator', 'username channelName profilePicture')
-      .sort({ views: -1 });
+    const pagination = await getCursorPagination(Video, {
+      filter: { $text: { $search: query } },
+      cursor,
+      limit: parseInt(limit) || 12,
+      sortField: 'createdAt',
+      sortOrder: -1
+    });
 
-    res.status(200).json(videos);
+    const results = await Video.populate(pagination.results, {
+      path: 'creator',
+      select: 'username channelName profilePicture'
+    });
+
+    res.status(200).json({
+      status: 'success',
+      ...pagination,
+      results
+    });
   } catch (error) {
     res.status(500).json({ message: 'Error searching', error: error.message });
   }

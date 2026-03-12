@@ -1,11 +1,25 @@
 import express from 'express';
 import cors from 'cors';
+import helmet from 'helmet';
+import rateLimit from 'express-rate-limit';
 import authRoutes from './routes/authRoutes.js';
 import videoRoutes from './routes/videoRoutes.js';
 import commentRoutes from './routes/commentRoutes.js';
 import analyticsRoutes from './routes/analyticsRoutes.js';
 
 const app = express();
+
+// Security Middleware
+app.use(helmet());
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // Limit each IP to 100 requests per windowMs
+  message: { message: 'Too many requests from this IP, please try again after 15 minutes' }
+});
+
+// Apply rate limiting to all requests
+app.use('/api/', limiter);
 
 // Middleware
 app.use(cors({

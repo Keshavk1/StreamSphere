@@ -31,5 +31,9 @@ const commentSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// Index for faster comment retrieval per video
+commentSchema.index({ video: 1 });
+commentSchema.index({ createdAt: -1 });
+
 const Comment = mongoose.model('Comment', commentSchema);
 export default Comment;

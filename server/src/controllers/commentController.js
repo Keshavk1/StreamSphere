@@ -1,5 +1,6 @@
 import Comment from '../models/Comment.js';
 import Video from '../models/Video.js';
+import { getCursorPagination } from '../utils/pagination.js';
 
 // Add comment
 export const addComment = async (req, res) => {
@@ -34,16 +35,31 @@ export const addComment = async (req, res) => {
   }
 };
 
-// Get comments for video
+// Get comments for video (with cursor pagination)
 export const getComments = async (req, res) => {
   try {
     const { videoId } = req.params;
+    const { cursor, limit } = req.query;
 
-    const comments = await Comment.find({ video: videoId })
-      .populate('author', 'username profilePicture')
-      .sort({ createdAt: -1 });
+    const pagination = await getCursorPagination(Comment, {
+      filter: { video: videoId },
+      cursor,
+      limit: parseInt(limit) || 20,
+      sortField: 'createdAt',
+      sortOrder: -1
+    });
 
-    res.status(200).json(comments);
+    // Populate author for the results
+    const results = await Comment.populate(pagination.results, {
+      path: 'author',
+      select: 'username profilePicture'
+    });
+
+    res.status(200).json({
+      status: 'success',
+      ...pagination,
+      results
+    });
   } catch (error) {
     res.status(500).json({ message: 'Error fetching comments', error: error.message });
   }
